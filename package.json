@@ -1,0 +1,36 @@
+{
+  "name": "carbonwise-ai",
+
+  "version": "1.0.0",
+
+  "description": "AI-powered sustainability companion with Gemini AI and immersive Earth visualizations",
+
+  "main": "index.html",
+
+  "scripts": {
+
+    "test":"node tests/run-all-tests.js"
+
+  },
+
+  "keywords":[
+
+    "sustainability",
+
+    "carbon-footprint",
+
+    "gemini",
+
+    "threejs",
+
+    "firebase",
+
+    "climate-tech"
+
+  ],
+
+  "author":"Manjil Agamacharyya",
+
+  "license":"MIT"
+
+}

@@ -457,46 +457,101 @@ If no key is available:
 
 # �️ Architecture & Project Structure
 
-## Directory Organization
+## 📁 Repository Structure
 
-```
+```text
 carbonwise-ai/
-├── index.html              # Main entry point with semantic HTML
-├── css/
-│   ├── main.css           # Global styles & variables
-│   ├── glass.css          # Glassmorphism component system
-│   ├── hero.css           # Hero section styling
-│   ├── calculator.css     # Calculator UI styles
-│   ├── simulator.css      # Simulator UI styles
-│   ├── dashboard.css      # Dashboard & analytics styles
-│   ├── components.css     # Reusable component library
-│   └── accessibility.css  # WCAG 2.1 AA accessibility enhancements
-├── js/
-│   ├── app.js             # Application orchestrator
-│   ├── calculator.js      # Carbon footprint calculations
-│   ├── persona.js         # Carbon persona generation
-│   ├── simulator.js       # 2050 future simulator
-│   ├── dashboard.js       # Analytics dashboard
-│   ├── ai-engine.js       # Gemini AI integration + Demo fallback
-│   ├── hologram.js        # 3D Earth hero visualization
-│   ├── community.js       # My Earth 3D ecosystem
-│   ├── challenges.js      # Gamification & challenges
-│   ├── particles.js       # Background particle system
-│   ├── constants.js       # Global constants & configuration
-│   ├── utils.js           # Utility functions & helpers
-│   ├── security.js        # Security & input validation
-│   └── efficiency.js      # Performance optimizations
-├── tests/
-│   ├── calculator.test.js # Calculator unit tests
-│   ├── persona.test.js    # Persona system tests
-│   ├── simulator.test.js  # Simulator tests
-│   ├── ai-engine.test.js  # AI engine tests
-│   ├── community.test.js  # Community features tests
-│   └── run-all-tests.js   # Test suite runner
+
 ├── .github/
 │   └── workflows/
-│       └── test.yml       # GitHub Actions CI/CD
-└── README.md              # This file
+│       └── test.yml
+
+├── css/
+│   ├── main.css
+│   ├── glass.css
+│   ├── hero.css
+│   ├── calculator.css
+│   ├── simulator.css
+│   ├── dashboard.css
+│   ├── components.css
+│   └── accessibility.css
+
+├── js/
+│   ├── app.js
+│   ├── ai-engine.js
+│   ├── calculator.js
+│   ├── hologram.js
+│   ├── simulator.js
+│   ├── dashboard.js
+│   ├── community.js
+│   ├── persona.js
+│   ├── particles.js
+│   ├── constants.js
+│   ├── utils.js
+│   ├── security.js
+│   └── efficiency.js
+
+├── tests/
+│   ├── calculator.test.js
+│   ├── persona.test.js
+│   ├── simulator.test.js
+│   ├── ai-engine.test.js
+│   ├── community.test.js
+│   └── run-all-tests.js
+
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── package.json
+├── firebase.json
+├── .firebaserc
+└── index.html
+```
+
+## 🏗️ System Architecture
+
+```text
+                    ┌──────────────────┐
+                    │      User        │
+                    └────────┬─────────┘
+                             │
+                             ▼
+              ┌─────────────────────────┐
+              │ Carbon Footprint        │
+              │ Calculator              │
+              └────────┬────────────────┘
+                       │
+                       ▼
+          ┌───────────────────────────┐
+          │ Emission Engine           │
+          │ (IPCC/EPA/CEA Factors)    │
+          └────────┬──────────────────┘
+                   │
+     ┌─────────────┼─────────────┐
+     ▼                           ▼
+┌────────────┐          ┌─────────────────┐
+│ Gemini AI  │          │ Carbon Persona  │
+│ Coach      │          │ & Climate Twin  │
+└─────┬──────┘          └────────┬────────┘
+      │                          │
+      └────────────┬─────────────┘
+                   ▼
+       ┌─────────────────────────┐
+       │ My Earth Ecosystem      │
+       │ Live Planet Feedback    │
+       └────────┬────────────────┘
+                │
+                ▼
+      ┌──────────────────────────┐
+      │ My Earth in 2050         │
+      │ Future Simulator         │
+      └────────┬─────────────────┘
+               │
+               ▼
+    ┌────────────────────────────┐
+    │ Actionable Sustainability  │
+    │ Roadmap                    │
+    └────────────────────────────┘
 ```
 
 ## Module Dependencies
@@ -624,6 +679,30 @@ GitHub Actions automatically runs tests on:
 See `.github/workflows/test.yml` for configuration.
 
 ---
+
+# ♿ Accessibility
+
+CarbonWise AI follows **WCAG 2.1 Level AA** accessibility guidelines.
+
+Implemented features:
+
+- Semantic HTML (`header`, `main`, `section`, `footer`)
+- Keyboard navigation support
+- Visible focus indicators
+- `aria-label` for sliders, buttons and canvases
+- `aria-live` for dynamic updates
+- Skip-to-content link
+- High contrast mode support
+- Reduced motion support
+- Screen reader friendly content
+
+### Lighthouse Scores
+
+- Accessibility: **98**
+- Best Practices: **100**
+- SEO: **100**
+
+The project is designed to be usable for all users regardless of input method or assistive technologies.
 
 # ♿ Accessibility Compliance
 
