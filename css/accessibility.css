@@ -1,0 +1,334 @@
+/**
+ * CarbonWise AI - Accessibility Enhancements
+ * WCAG 2.1 Level AA compliance
+ * - Focus states and keyboard navigation
+ * - Color contrast improvements
+ * - Skip links and semantic structure
+ */
+
+/* ===== SKIP NAVIGATION LINK ===== */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--cyan-glow);
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+  z-index: 100;
+  border-radius: 0 0 4px 4px;
+  font-weight: 600;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* ===== FOCUS-VISIBLE STATES ===== */
+/* All interactive elements must have visible focus indicators */
+
+button:focus-visible,
+input[type="range"]:focus-visible,
+input[type="checkbox"]:focus-visible,
+a:focus-visible,
+.nav-link:focus-visible {
+  outline: 3px solid var(--cyan-glow);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Enhanced focus states for sliders */
+.hud-slider:focus-visible {
+  outline: 3px solid var(--cyan-glow);
+  outline-offset: 3px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.6);
+}
+
+/* Focus states for buttons */
+.btn:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 2px;
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.5);
+}
+
+.btn-primary:focus-visible {
+  outline-color: #22d3ee;
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.7);
+}
+
+.btn-secondary:focus-visible {
+  outline-color: #10b981;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+}
+
+/* Focus states for nav links */
+.nav-link:focus-visible {
+  outline: 2px solid var(--cyan-glow);
+  outline-offset: 4px;
+  text-decoration: underline;
+  border-radius: 4px;
+}
+
+/* Focus states for choice buttons (diet selection) */
+.choice-btn:focus-visible {
+  outline: 2px solid var(--cyan-glow);
+  outline-offset: 2px;
+  box-shadow: inset 0 0 10px rgba(34, 211, 238, 0.3);
+}
+
+/* ===== KEYBOARD ACCESSIBLE FORM ELEMENTS ===== */
+
+/* Label styling for better association with inputs */
+label {
+  display: inline-block;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Improve legend styling */
+legend {
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.95);
+  padding: 4px 0;
+}
+
+/* Improve checkbox/radio styling */
+input[type="checkbox"]:focus-visible,
+input[type="radio"]:focus-visible {
+  outline: 2px solid var(--cyan-glow);
+  outline-offset: 2px;
+}
+
+/* ===== COLOR CONTRAST IMPROVEMENTS ===== */
+/* WCAG AA requires minimum 4.5:1 for normal text, 3:1 for large text */
+
+/* Fix low-contrast text throughout */
+.slider-info span {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.hud-slider {
+  accent-color: var(--cyan-glow);
+}
+
+/* Enhanced contrast for descriptive text */
+.controls-desc,
+.section-subtitle {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+}
+
+/* Improve modal/panel text contrast */
+.glass-panel {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Category warning banner - ensure contrast */
+#category-alert-banner {
+  background: rgba(220, 38, 38, 0.15);
+  border-left: 4px solid #dc2626;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+#alert-banner-text {
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+}
+
+/* Improve text in cards */
+.category-header h3,
+.form-category-card h3,
+.persona-card h3 {
+  color: rgba(255, 255, 255, 0.98);
+  font-weight: 600;
+}
+
+/* Status badges and metrics */
+.metric-label {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+}
+
+.metric-value {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.99);
+}
+
+/* Heatmap legend text */
+.heatmap-legend {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ===== INTERACTIVE ELEMENT ACCESSIBILITY ===== */
+
+/* Toggle switches - make more accessible */
+.hud-switch {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.hud-switch input:focus-visible + .switch-slider {
+  outline: 2px solid var(--cyan-glow);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Card focus states */
+.glass-card:focus-within {
+  box-shadow: 0 0 30px rgba(34, 211, 238, 0.3);
+}
+
+/* ===== SCREEN READER ONLY CONTENT ===== */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ===== REDUCED MOTION FOR ACCESSIBILITY ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Pause animations for users who prefer reduced motion */
+  .ripple-effect,
+  .pulse,
+  .reveal-on-scroll,
+  @keyframes all {
+    animation: none !important;
+  }
+}
+
+/* ===== ENHANCED LINK UNDERLINES ===== */
+
+a[href]:not(.btn):not(.nav-link):not(.hud-tag) {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+a[href]:not(.btn):not(.nav-link):not(.hud-tag):hover {
+  text-decoration-thickness: 2px;
+}
+
+/* ===== HIGH CONTRAST MODE SUPPORT ===== */
+
+@media (prefers-contrast: more) {
+  .glass-panel,
+  .glass-card {
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .btn {
+    border: 2px solid currentColor;
+  }
+
+  .hud-slider {
+    border: 2px solid var(--cyan-glow);
+  }
+
+  label,
+  legend {
+    font-weight: 700;
+  }
+}
+
+/* ===== DARK MODE SPECIFIC IMPROVEMENTS ===== */
+
+body {
+  background-color: #0a0a0a;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Ensure sufficient contrast in dark mode */
+.section-title {
+  color: rgba(255, 255, 255, 0.98);
+  font-weight: 700;
+}
+
+/* ===== TABLE ACCESSIBILITY (if applicable) ===== */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  text-align: left;
+  padding: 12px;
+  background: rgba(34, 211, 238, 0.1);
+  border-bottom: 2px solid var(--cyan-glow);
+  font-weight: 600;
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===== FOCUS OUTLINE CUSTOMIZATION ===== */
+
+/* Remove default outline for better custom outline display */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  /* Custom focus handling above */
+}
+
+/* ===== TOOLTIP ACCESSIBILITY ===== */
+
+[aria-label],
+[title] {
+  position: relative;
+}
+
+/* Ensure tooltips are readable */
+@media (hover: hover) {
+  [title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    z-index: 1000;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* ===== SECTION NAVIGATION ACCESSIBILITY ===== */
+
+section {
+  scroll-margin-top: 80px;
+}
+
+/* Ensure section headings are keyboard navigable */
+section > .section-header {
+  outline: none;
+}
+
+section > .section-header:focus-within {
+  box-shadow: inset 0 0 10px rgba(34, 211, 238, 0.2);
+}

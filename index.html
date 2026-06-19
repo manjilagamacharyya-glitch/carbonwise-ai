@@ -4,10 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CarbonWise AI - Know Your Impact, Change Your Future</title>
-  <!-- SEO Meta Tags -->
+  <!-- SEO & Accessibility Meta Tags -->
   <meta name="description" content="CarbonWise AI is a premium, futuristic platform that calculates, tracks, and reduces your carbon footprint through personalized AI insights and interactive gamified challenges.">
   <meta name="keywords" content="carbon footprint, carbon calculator, AI coach, sustainability, green tech, eco tracker, environmental impact">
   <meta name="author" content="CarbonWise AI Team">
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="CarbonWise AI | AI-Powered Sustainability Companion">
+  <meta property="og:description" content="Know your impact, change your future. AI-powered platform with 3D Earth visualization and personalized sustainability coaching.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://carbonwise-ai-81a30.web.app">
+  <meta property="og:image" content="https://carbonwise-ai-81a30.web.app/og-image.png">
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CarbonWise AI | Know Your Impact">
+  <meta name="twitter:description" content="AI-powered carbon footprint calculator with 3D Earth visualization and personalized sustainability coaching.">
+  <meta name="twitter:image" content="https://carbonwise-ai-81a30.web.app/twitter-image.png">
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' https: 'unsafe-inline'; style-src 'self' https: 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:;">
+  <!-- Accessibility Meta Tag -->
+  <meta name="accessibility" content="WCAG 2.1 Level AA">
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,6 +35,7 @@
   <link rel="stylesheet" href="css/simulator.css">
   <link rel="stylesheet" href="css/dashboard.css">
   <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/accessibility.css">
   <!-- Three.js and OrbitControls via CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <!-- Chart.js via CDN -->
@@ -30,6 +46,9 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
+
+  <!-- Skip to Content Link for Accessibility -->
+  <a href="#main-content" class="skip-to-content">Skip to Main Content</a>
 
   <!-- Background Particle Canvas -->
   <canvas id="particle-canvas"></canvas>
@@ -66,7 +85,7 @@
     </div>
   </header>
 
-  <main class="hud-content">
+  <main class="hud-content" id="main-content">
     
     <!-- HERO SECTION -->
     <section id="hero" class="hero-section">
@@ -140,7 +159,7 @@
               <span class="hud-tag bottom-left">RADAR TRACKING ON</span>
               <span class="hud-tag bottom-right">ATMOSPHERE: ACTIVE</span>
             </div>
-            <div id="hologram-canvas-container"></div>
+            <div id="hologram-canvas-container" role="img" aria-label="Interactive 3D Earth hologram visualization showing planet status based on environmental impact. Use mouse to rotate the Earth. Cyan glow indicates healthy areas, red indicates pollution."></div>
             <!-- Category Tags surrounding Earth -->
             <div class="category-glow-tags">
               <div class="glow-tag tag-trans" style="--angle: 0deg;">
@@ -184,31 +203,31 @@
             </div>
             <div class="slider-group">
               <div class="slider-info">
-                <span>Car Travel (km/week)</span>
+                <label for="input-car">Car Travel (km/week)</label>
                 <span class="slider-value" id="val-car">120</span>
               </div>
-              <input type="range" id="input-car" min="0" max="1000" value="120" class="hud-slider cyan-theme">
+              <input type="range" id="input-car" min="0" max="1000" value="120" aria-label="Car travel distance in kilometers per week, ranging from 0 to 1000 km" aria-valuemin="0" aria-valuemax="1000" aria-valuenow="120" class="hud-slider cyan-theme" tabindex="0">
             </div>
             <div class="slider-group">
               <div class="slider-info">
-                <span>Bike / Walk (km/week)</span>
+                <label for="input-bike">Bike / Walk (km/week)</label>
                 <span class="slider-value" id="val-bike">15</span>
               </div>
-              <input type="range" id="input-bike" min="0" max="200" value="15" class="hud-slider emerald-theme">
+              <input type="range" id="input-bike" min="0" max="200" value="15" aria-label="Bike or walk distance in kilometers per week, ranging from 0 to 200 km" aria-valuemin="0" aria-valuemax="200" aria-valuenow="15" class="hud-slider emerald-theme" tabindex="0">
             </div>
             <div class="slider-group">
               <div class="slider-info">
-                <span>Public Transit (km/week)</span>
+                <label for="input-transit">Public Transit (km/week)</label>
                 <span class="slider-value" id="val-transit">40</span>
               </div>
-              <input type="range" id="input-transit" min="0" max="500" value="40" class="hud-slider blue-theme">
+              <input type="range" id="input-transit" min="0" max="500" value="40" aria-label="Public transit distance in kilometers per week, ranging from 0 to 500 km" aria-valuemin="0" aria-valuemax="500" aria-valuenow="40" class="hud-slider blue-theme" tabindex="0">
             </div>
             <div class="slider-group">
               <div class="slider-info">
-                <span>Flights (Trips/year)</span>
+                <label for="input-flights">Flights (Trips/year)</label>
                 <span class="slider-value" id="val-flights">2</span>
               </div>
-              <input type="range" id="input-flights" min="0" max="20" value="2" class="hud-slider cyan-theme">
+              <input type="range" id="input-flights" min="0" max="20" value="2" aria-label="Flight trips per year, ranging from 0 to 20 trips" aria-valuemin="0" aria-valuemax="20" aria-valuenow="2" class="hud-slider cyan-theme" tabindex="0">
             </div>
           </div>
 
@@ -222,24 +241,24 @@
             </div>
             <div class="slider-group">
               <div class="slider-info">
-                <span>Electricity Usage (kWh/month)</span>
+                <label for="input-electricity">Electricity Usage (kWh/month)</label>
                 <span class="slider-value" id="val-electricity">350</span>
               </div>
-              <input type="range" id="input-electricity" min="0" max="1500" value="350" class="hud-slider emerald-theme">
+              <input type="range" id="input-electricity" min="0" max="1500" value="350" aria-label="Monthly electricity usage in kilowatt-hours, ranging from 0 to 1500 kWh" aria-valuemin="0" aria-valuemax="1500" aria-valuenow="350" class="hud-slider emerald-theme" tabindex="0">
             </div>
             <div class="slider-group">
               <div class="slider-info">
-                <span>LPG / Gas usage (kg/month)</span>
+                <label for="input-lpg">LPG / Gas usage (kg/month)</label>
                 <span class="slider-value" id="val-lpg">15</span>
               </div>
-              <input type="range" id="input-lpg" min="0" max="100" value="15" class="hud-slider blue-theme">
+              <input type="range" id="input-lpg" min="0" max="100" value="15" aria-label="Monthly LPG or gas usage in kilograms, ranging from 0 to 100 kg" aria-valuemin="0" aria-valuemax="100" aria-valuenow="15" class="hud-slider blue-theme" tabindex="0">
             </div>
             <div class="slider-group">
               <div class="slider-info">
-                <span>Renewable Energy %</span>
+                <label for="input-renewable">Renewable Energy %</label>
                 <span class="slider-value" id="val-renewable">25</span>
               </div>
-              <input type="range" id="input-renewable" min="0" max="100" value="25" class="hud-slider cyan-theme">
+              <input type="range" id="input-renewable" min="0" max="100" value="25" aria-label="Percentage of renewable energy used, ranging from 0 to 100 percent" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25" class="hud-slider cyan-theme" tabindex="0">
             </div>
           </div>
 
@@ -252,26 +271,28 @@
               <h3>Food & Consumption</h3>
             </div>
             <div class="input-choice-group">
-              <span>Diet Style</span>
-              <div class="choice-selector">
-                <button class="choice-btn active" data-value="vegetarian" id="btn-diet-veg">Vegetarian</button>
-                <button class="choice-btn" data-value="mixed" id="btn-diet-mix">Mixed Diet</button>
-                <button class="choice-btn" data-value="meat" id="btn-diet-meat">Meat Heavy</button>
-              </div>
+              <fieldset>
+                <legend>Diet Style</legend>
+                <div class="choice-selector">
+                  <button class="choice-btn active" data-value="vegetarian" id="btn-diet-veg" aria-pressed="true">Vegetarian</button>
+                  <button class="choice-btn" data-value="mixed" id="btn-diet-mix" aria-pressed="false">Mixed Diet</button>
+                  <button class="choice-btn" data-value="meat" id="btn-diet-meat" aria-pressed="false">Meat Heavy</button>
+                </div>
+              </fieldset>
             </div>
             <div class="slider-group">
               <div class="slider-info">
-                <span>Clothing Purchases (Items/month)</span>
+                <label for="input-clothes">Clothing Purchases (Items/month)</label>
                 <span class="slider-value" id="val-clothes">3</span>
               </div>
-              <input type="range" id="input-clothes" min="0" max="30" value="3" class="hud-slider blue-theme">
+              <input type="range" id="input-clothes" min="0" max="30" value="3" aria-label="Number of clothing items purchased per month, ranging from 0 to 30 items" aria-valuemin="0" aria-valuemax="30" aria-valuenow="3" class="hud-slider blue-theme" tabindex="0">
             </div>
             <div class="slider-group">
               <div class="slider-info">
-                <span>Electronics Purchases (Items/year)</span>
+                <label for="input-electronics">Electronics Purchases (Items/year)</label>
                 <span class="slider-value" id="val-electronics">2</span>
               </div>
-              <input type="range" id="input-electronics" min="0" max="15" value="2" class="hud-slider cyan-theme">
+              <input type="range" id="input-electronics" min="0" max="15" value="2" aria-label="Number of electronics items purchased per year, ranging from 0 to 15 items" aria-valuemin="0" aria-valuemax="15" aria-valuenow="2" class="hud-slider cyan-theme" tabindex="0">
             </div>
           </div>
 
@@ -282,7 +303,7 @@
         </div>
 
         <!-- Real-time Results & Analysis Card -->
-        <div class="calculator-results glass-card">
+        <div class="calculator-results glass-card" aria-live="polite" aria-label="Real-time calculator results showing your total carbon footprint and emissions breakdown by category">
           <div class="results-header">
             <h3>Calculated Ecological Impact</h3>
             <span class="hud-status text-emerald">ONLINE</span>
@@ -572,7 +593,7 @@
 
           <!-- Visual Frame containing the 3D Earth representing user state -->
           <div class="earth-canvas-container-outer">
-            <div id="sim-earth-canvas-container"></div>
+            <div id="sim-earth-canvas-container" role="img" aria-label="3D Earth visualization representing planetary state based on sustainability choices. Cyan colors indicate healthy environment, red indicates pollution and climate crisis."></div>
             
             <!-- Real-time HUD overlays overlays representing visual effects -->
             <div class="smog-overlay" id="smog-screen-overlay"></div>
@@ -601,7 +622,7 @@
             </div>
             <div class="slider-2050-wrapper">
               <span class="slider-2050-label text-red">Business-As-Usual</span>
-              <input type="range" id="input-2050" min="0" max="100" value="0" class="hud-slider timeline-2050-slider">
+              <input type="range" id="input-2050" min="0" max="100" value="0" aria-label="Timeline slider for future scenarios. Drag from left (Business-As-Usual, 0%) to right (Net Zero Future, 100%) to visualize planetary state in 2050" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" class="hud-slider timeline-2050-slider" tabindex="0">
               <span class="slider-2050-label text-emerald">Net Zero Future</span>
             </div>
             <p class="slider-2050-desc" id="text-2050-desc">Drag the timeline slider to visualize how global temperatures, pollution levels, and forest coverage transform by the year 2050 depending on lifestyle practices.</p>
@@ -670,7 +691,7 @@
             </button>
           </div>
 
-          <div class="coach-insights-scroll" id="ai-insights-container">
+          <div class="coach-insights-scroll" id="ai-insights-container" aria-live="polite" aria-label="AI Coach insights and recommendations that update as you modify your carbon footprint">
             <!-- Simulated AI writing content loads here -->
             <div class="ai-loading-placeholder">
               <div class="spinner"></div>
@@ -790,7 +811,7 @@
           </div>
           <!-- Interactive Map Container -->
           <div class="interactive-map-wrapper">
-            <svg id="world-map-svg" viewBox="0 0 1000 500" class="world-map-canvas">
+            <svg id="world-map-svg" viewBox="0 0 1000 500" class="world-map-canvas" role="img" aria-label="Interactive world map showing global community environmental actions and carbon reduction progress in real time">
               <!-- Styled global paths will be injected -->
             </svg>
             <!-- Map overlay nodes -->
@@ -818,7 +839,7 @@
               <span id="my-earth-health-label" class="earth-health-status text-red">🔴 Critical</span>
               <p id="my-earth-health-desc">Your Earth is currently in a stressed state due to high transport and energy emissions.</p>
             </div>
-            <div id="my-earth-3d-container" class="my-earth-3d-container"></div>
+            <div id="my-earth-3d-container" class="my-earth-3d-container" role="img" aria-label="My Earth 3D visualization showing the current state of your planetary ecosystem. Status shown as critical, stressed, healing, or thriving based on your carbon footprint."></div>
             <div class="my-earth-metrics-grid">
               <div class="mini-stat glass-panel">
                 <span>Atmosphere</span>
