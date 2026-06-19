@@ -1,0 +1,336 @@
+/* ==========================================================================
+   CARBONWISE AI - FUTURE IMPACT SIMULATOR DESIGN SPECIFICATION
+   ========================================================================== */
+
+.simulator-split-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 2.5rem;
+  align-items: stretch;
+}
+
+/* Controls Column */
+.simulator-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.controls-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Toggles Grid layout */
+.toggles-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.toggle-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem 1.25rem;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: all var(--transition-fast);
+}
+
+.toggle-card:hover {
+  background: rgba(15, 23, 42, 0.45);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* If active toggle, give soft border glow corresponding to toggle color */
+.toggle-card.active-ev { border-color: var(--cyan-glow); box-shadow: 0 0 10px var(--cyan-dim); }
+.toggle-card.active-solar { border-color: var(--emerald-glow); box-shadow: 0 0 10px var(--emerald-dim); }
+.toggle-card.active-veg { border-color: var(--blue-glow); box-shadow: 0 0 10px var(--blue-dim); }
+.toggle-card.active-flights { border-color: var(--cyan-glow); box-shadow: 0 0 10px var(--cyan-dim); }
+.toggle-card.active-led { border-color: var(--emerald-glow); box-shadow: 0 0 10px var(--emerald-dim); }
+.toggle-card.active-bike { border-color: var(--blue-glow); box-shadow: 0 0 10px var(--blue-dim); }
+
+.toggle-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.toggle-card-header i {
+  width: 16px;
+  height: 16px;
+}
+
+.toggle-card-header span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* Premium Sci-Fi HUD Toggle Switch */
+.hud-switch {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.hud-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 34px;
+  transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--text-muted);
+  border-radius: 50%;
+  transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hud-switch input:checked + .switch-slider {
+  background-color: var(--emerald-dim);
+  border-color: var(--emerald-glow);
+}
+
+.hud-switch input:checked + .switch-slider:before {
+  transform: translateX(18px);
+  background-color: var(--emerald-glow);
+  box-shadow: 0 0 8px var(--emerald-glow);
+}
+
+/* Projection Results block */
+.projection-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(9, 9, 11, 0.4);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: auto;
+}
+
+.proj-flow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.proj-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+.node-title {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.node-val {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.proj-arrow {
+  color: var(--text-muted);
+  width: 16px;
+  height: 16px;
+}
+
+.trees-saved-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  padding-top: 0.9rem;
+}
+
+.trees-saved-display i {
+  width: 16px;
+  height: 16px;
+}
+
+/* Simulator Earth Display column */
+.simulator-earth-display {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-height: 480px;
+}
+
+.simulator-hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.simulator-hud-header h3 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.hud-sub {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+/* Canvas Container Frame */
+.earth-canvas-container-outer {
+  position: relative;
+  flex: 1;
+  min-height: 250px;
+  background: radial-gradient(circle, rgba(13, 21, 39, 0.3) 0%, rgba(9, 9, 11, 0.6) 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+#sim-earth-canvas-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Grey overlay representing smog and crisis pollution */
+.smog-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(148, 163, 184, 0.12);
+  mix-blend-mode: color;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 1; /* Adjusts dynamically */
+  transition: opacity 1s ease;
+}
+
+.visual-effects-hud-labels {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.hud-fx-stat {
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.hud-fx-stat .lbl {
+  color: var(--text-muted);
+}
+
+/* Timeline 2050 Slider */
+.earth-2050-slider-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border-radius: 16px;
+}
+
+.timeline-title-2050 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.timeline-title-2050 i {
+  width: 14px;
+  height: 14px;
+}
+
+.slider-2050-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.slider-2050-label {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 600;
+  width: 100px;
+}
+
+.slider-2050-label.text-red { text-align: right; }
+.slider-2050-label.text-emerald { text-align: left; }
+
+.timeline-2050-slider {
+  flex: 1;
+}
+
+/* Timeline specific 2050 slider theme colors */
+.timeline-2050-slider::-webkit-slider-thumb {
+  background: linear-gradient(90deg, var(--accent-red), var(--emerald-glow));
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+}
+
+.slider-2050-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+@media (max-width: 1024px) {
+  .simulator-split-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 500px) {
+  .toggles-grid {
+    grid-template-columns: 1fr;
+  }
+}

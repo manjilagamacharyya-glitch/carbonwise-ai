@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarbonWise AI - Know Your Impact, Change Your Future</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="CarbonWise AI is a premium, futuristic platform that calculates, tracks, and reduces your carbon footprint through personalized AI insights and interactive gamified challenges.">
+  <meta name="keywords" content="carbon footprint, carbon calculator, AI coach, sustainability, green tech, eco tracker, environmental impact">
+  <meta name="author" content="CarbonWise AI Team">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/glass.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/calculator.css">
+  <link rel="stylesheet" href="css/simulator.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/components.css">
+  <!-- Three.js and OrbitControls via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Chart.js via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Canvas Confetti via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Lucide Icons via CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Background Particle Canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Global HUD Overlay Grid Lines -->
+  <div class="hud-grid-overlay"></div>
+
+  <!-- Header Navigation -->
+  <header class="hud-header glass-panel">
+    <div class="logo-container">
+      <div class="logo-glow"></div>
+      <i data-lucide="leaf" class="logo-icon"></i>
+      <span class="logo-text">CarbonWise<span class="logo-accent">AI</span></span>
+    </div>
+    <nav class="hud-nav">
+      <a href="#hero" class="nav-link active">Home</a>
+      <a href="#calculator" class="nav-link">Calculator</a>
+      <a href="#simulator" class="nav-link">Simulator</a>
+      <a href="#dashboard" class="nav-link">Analytics</a>
+      <a href="#challenges" class="nav-link">Challenges</a>
+    </nav>
+    <div class="user-hud-stats">
+      <div class="stat-badge glass-panel xp-badge">
+        <i data-lucide="zap" class="xp-icon"></i>
+        <span><span id="user-xp">1,250</span> XP</span>
+      </div>
+      <div class="stat-badge glass-panel level-badge">
+        <span>LVL <span id="user-level">3</span></span>
+      </div>
+      <div class="stat-badge glass-panel rank-badge">
+        <i data-lucide="award" class="rank-icon"></i>
+        <span id="user-rank-title">Green Hero</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="hud-content">
+    
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-section">
+      <div class="hero-glow-1"></div>
+      <div class="hero-glow-2"></div>
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="badge-futuristic">AI-POWERED ECO SYSTEM</div>
+          <h1 class="hero-title">
+            CarbonWise <span class="gradient-text">AI</span>
+          </h1>
+          <h2 class="hero-subtitle">
+            Know Your Impact.<br>Change Your Future.
+          </h2>
+          <p class="hero-description">
+            An intelligent platform that calculates, tracks, and reduces your carbon footprint through personalized AI insights and small daily actions.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-glow ripple-btn" onclick="scrollToSection('#calculator')">
+              <span>Calculate My Footprint</span>
+              <i data-lucide="chevron-right"></i>
+            </button>
+            <button class="btn btn-secondary ripple-btn" onclick="loadDemoData()">
+              <span>Explore Demo</span>
+              <i data-lucide="play"></i>
+            </button>
+          </div>
+          <!-- Live HUD Metrics -->
+          <div class="live-metrics-grid">
+            <div class="metric-card glass-card">
+              <span class="metric-label">Today's Personal Emissions</span>
+              <div class="metric-value-container">
+                <span class="metric-value text-cyan" id="live-today-emissions">14.2</span>
+                <span class="metric-unit">kg CO₂</span>
+              </div>
+              <div class="metric-trend negative">
+                <i data-lucide="trending-down"></i>
+                <span>-4.2% from average</span>
+              </div>
+            </div>
+            <div class="metric-card glass-card">
+              <span class="metric-label">Monthly CO₂ Savings</span>
+              <div class="metric-value-container">
+                <span class="metric-value text-emerald" id="live-monthly-savings">342.5</span>
+                <span class="metric-unit">kg CO₂</span>
+              </div>
+              <div class="metric-trend positive">
+                <i data-lucide="trending-up"></i>
+                <span>+12.4% vs last month</span>
+              </div>
+            </div>
+            <div class="metric-card glass-card">
+              <span class="metric-label">Trees Equivalent Saved</span>
+              <div class="metric-value-container">
+                <span class="metric-value text-blue" id="live-trees-eq">16.4</span>
+                <span class="metric-unit">Trees</span>
+              </div>
+              <div class="metric-indicator-bar">
+                <div class="indicator-fill" style="width: 68%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <!-- 3D Earth Hologram Viewport -->
+          <div class="hologram-container glass-card">
+            <div class="hologram-overlay-hud">
+              <span class="hud-tag top-left">PLANET STATUS: VERIFYING</span>
+              <span class="hud-tag top-right">SECTOR: 09</span>
+              <span class="hud-tag bottom-left">RADAR TRACKING ON</span>
+              <span class="hud-tag bottom-right">ATMOSPHERE: ACTIVE</span>
+            </div>
+            <div id="hologram-canvas-container"></div>
+            <!-- Category Tags surrounding Earth -->
+            <div class="category-glow-tags">
+              <div class="glow-tag tag-trans" style="--angle: 0deg;">
+                <i data-lucide="car"></i><span>Transportation</span>
+              </div>
+              <div class="glow-tag tag-energy" style="--angle: 72deg;">
+                <i data-lucide="zap"></i><span>Energy</span>
+              </div>
+              <div class="glow-tag tag-food" style="--angle: 144deg;">
+                <i data-lucide="utensils"></i><span>Food</span>
+              </div>
+              <div class="glow-tag tag-shopping" style="--angle: 216deg;">
+                <i data-lucide="shopping-bag"></i><span>Shopping</span>
+              </div>
+              <div class="glow-tag tag-travel" style="--angle: 288deg;">
+                <i data-lucide="plane"></i><span>Travel</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALCULATOR & BREAKDOWN -->
+    <section id="calculator" class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Carbon Footprint Calculator</h2>
+        <p class="section-subtitle">Provide your weekly and yearly habits to estimate your ecological index.</p>
+      </div>
+
+      <div class="calculator-grid">
+        <!-- Form Column -->
+        <div class="calculator-form glass-card">
+          <!-- Transportation Card -->
+          <div class="form-category-card">
+            <div class="category-header">
+              <div class="category-icon-wrapper text-cyan">
+                <i data-lucide="car"></i>
+              </div>
+              <h3>Transportation</h3>
+            </div>
+            <div class="slider-group">
+              <div class="slider-info">
+                <span>Car Travel (km/week)</span>
+                <span class="slider-value" id="val-car">120</span>
+              </div>
+              <input type="range" id="input-car" min="0" max="1000" value="120" class="hud-slider cyan-theme">
+            </div>
+            <div class="slider-group">
+              <div class="slider-info">
+                <span>Bike / Walk (km/week)</span>
+                <span class="slider-value" id="val-bike">15</span>
+              </div>
+              <input type="range" id="input-bike" min="0" max="200" value="15" class="hud-slider emerald-theme">
+            </div>
+            <div class="slider-group">
+              <div class="slider-info">
+                <span>Public Transit (km/week)</span>
+                <span class="slider-value" id="val-transit">40</span>
+              </div>
+              <input type="range" id="input-transit" min="0" max="500" value="40" class="hud-slider blue-theme">
+            </div>
+            <div class="slider-group">
+              <div class="slider-info">
+                <span>Flights (Trips/year)</span>
+                <span class="slider-value" id="val-flights">2</span>
+              </div>
+              <input type="range" id="input-flights" min="0" max="20" value="2" class="hud-slider cyan-theme">
+            </div>
+          </div>
+
+          <!-- Home Energy Card -->
+          <div class="form-category-card">
+            <div class="category-header">
+              <div class="category-icon-wrapper text-emerald">
+                <i data-lucide="zap"></i>
+              </div>
+              <h3>Home Energy</h3>
+            </div>
+            <div class="slider-group">
+              <div class="slider-info">
+                <span>Electricity Usage (kWh/month)</span>
+                <span class="slider-value" id="val-electricity">350</span>
+              </div>
+              <input type="range" id="input-electricity" min="0" max="1500" value="350" class="hud-slider emerald-theme">
+            </div>
+            <div class="slider-group">
+              <div class="slider-info">
+                <span>LPG / Gas usage (kg/month)</span>
+                <span class="slider-value" id="val-lpg">15</span>
+              </div>
+              <input type="range" id="input-lpg" min="0" max="100" value="15" class="hud-slider blue-theme">
+            </div>
+            <div class="slider-group">
+              <div class="slider-info">
+                <span>Renewable Energy %</span>
+                <span class="slider-value" id="val-renewable">25</span>
+              </div>
+              <input type="range" id="input-renewable" min="0" max="100" value="25" class="hud-slider cyan-theme">
+            </div>
+          </div>
+
+          <!-- Food & Consumption Card -->
+          <div class="form-category-card">
+            <div class="category-header">
+              <div class="category-icon-wrapper text-blue">
+                <i data-lucide="utensils"></i>
+              </div>
+              <h3>Food & Consumption</h3>
+            </div>
+            <div class="input-choice-group">
+              <span>Diet Style</span>
+              <div class="choice-selector">
+                <button class="choice-btn active" data-value="vegetarian" id="btn-diet-veg">Vegetarian</button>
+                <button class="choice-btn" data-value="mixed" id="btn-diet-mix">Mixed Diet</button>
+                <button class="choice-btn" data-value="meat" id="btn-diet-meat">Meat Heavy</button>
+              </div>
+            </div>
+            <div class="slider-group">
+              <div class="slider-info">
+                <span>Clothing Purchases (Items/month)</span>
+                <span class="slider-value" id="val-clothes">3</span>
+              </div>
+              <input type="range" id="input-clothes" min="0" max="30" value="3" class="hud-slider blue-theme">
+            </div>
+            <div class="slider-group">
+              <div class="slider-info">
+                <span>Electronics Purchases (Items/year)</span>
+                <span class="slider-value" id="val-electronics">2</span>
+              </div>
+              <input type="range" id="input-electronics" min="0" max="15" value="2" class="hud-slider cyan-theme">
+            </div>
+          </div>
+
+          <button id="calculate-btn" class="btn btn-primary btn-block btn-glow ripple-btn">
+            <i data-lucide="bar-chart-2"></i>
+            <span>Calculate Total Footprint</span>
+          </button>
+        </div>
+
+        <!-- Real-time Results & Analysis Card -->
+        <div class="calculator-results glass-card">
+          <div class="results-header">
+            <h3>Calculated Ecological Impact</h3>
+            <span class="hud-status text-emerald">ONLINE</span>
+          </div>
+
+          <!-- Main Circle Indicator -->
+          <div class="radial-score-container">
+            <div class="circular-progress-wrap">
+              <svg viewBox="0 0 100 100" class="circular-svg">
+                <circle cx="50" cy="50" r="40" class="circle-bg"></circle>
+                <circle cx="50" cy="50" r="40" class="circle-fg" id="results-radial-progress"></circle>
+              </svg>
+              <div class="circular-text-container">
+                <span class="score-value" id="results-co2-val">4.5</span>
+                <span class="score-unit">Tons CO₂/year</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comparative bars -->
+          <div class="comparison-bars-container">
+            <div class="comparison-item">
+              <div class="comp-label">
+                <span>Your Footprint</span>
+                <span class="comp-value" id="comp-val-user">4,500 kg</span>
+              </div>
+              <div class="comp-bar-track">
+                <div class="comp-bar-fill fill-cyan" id="comp-bar-user" style="width: 45%;"></div>
+              </div>
+            </div>
+            <div class="comparison-item">
+              <div class="comp-label">
+                <span>Global Average</span>
+                <span class="comp-value">4,000 kg</span>
+              </div>
+              <div class="comp-bar-track">
+                <div class="comp-bar-fill fill-blue" style="width: 40%;"></div>
+              </div>
+            </div>
+            <div class="comparison-item">
+              <div class="comp-label">
+                <span>Sustainable Target (Net Zero)</span>
+                <span class="comp-value text-emerald">2,000 kg</span>
+              </div>
+              <div class="comp-bar-track">
+                <div class="comp-bar-fill fill-emerald" style="width: 20%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Real-time Animated Category Breakdown -->
+          <div class="breakdown-list-container">
+            <h4>Impact Contribution Breakdown</h4>
+            <div class="breakdown-item" id="breakdown-trans">
+              <div class="item-info">
+                <span class="icon-label"><i data-lucide="car"></i> Transportation</span>
+                <span class="item-percent" id="pct-trans">40%</span>
+              </div>
+              <div class="breakdown-bar-track">
+                <div class="breakdown-bar-fill" id="bar-trans" style="width: 40%; background: var(--cyan-glow);"></div>
+              </div>
+            </div>
+            <div class="breakdown-item" id="breakdown-energy">
+              <div class="item-info">
+                <span class="icon-label"><i data-lucide="zap"></i> Home Energy</span>
+                <span class="item-percent" id="pct-energy">35%</span>
+              </div>
+              <div class="breakdown-bar-track">
+                <div class="breakdown-bar-fill" id="bar-energy" style="width: 35%; background: var(--emerald-glow);"></div>
+              </div>
+            </div>
+            <div class="breakdown-item" id="breakdown-food">
+              <div class="item-info">
+                <span class="icon-label"><i data-lucide="utensils"></i> Food & Diet</span>
+                <span class="item-percent" id="pct-food">15%</span>
+              </div>
+              <div class="breakdown-bar-track">
+                <div class="breakdown-bar-fill" id="bar-food" style="width: 15%; background: var(--blue-glow);"></div>
+              </div>
+            </div>
+            <div class="breakdown-item" id="breakdown-shopping">
+              <div class="item-info">
+                <span class="icon-label"><i data-lucide="shopping-bag"></i> Shopping</span>
+                <span class="item-percent" id="pct-shopping">10%</span>
+              </div>
+              <div class="breakdown-bar-track">
+                <div class="breakdown-bar-fill" id="bar-shopping" style="width: 10%; background: #a855f7;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Insight warning alert -->
+          <div class="category-warning-banner glass-panel" id="category-alert-banner">
+            <i data-lucide="alert-triangle" class="alert-icon text-red"></i>
+            <p id="alert-banner-text">Transportation contributes 40% of your emissions. This category deserves immediate attention.</p>
+          </div>
+
+          <div class="sources-toggle-wrapper glass-panel">
+            <button id="toggle-sources-btn" class="btn btn-secondary btn-sm ripple-btn">View Sources ▼</button>
+            <div id="sources-panel" class="sources-panel">
+              <ul class="sources-list">
+                <li>Car: 0.192 kg CO₂/km — IPCC AR6</li>
+                <li>Bus: 0.105 kg CO₂/km — US EPA</li>
+                <li>Train: 0.041 kg CO₂/km — Our World in Data</li>
+                <li>Domestic Flight: 255 kg CO₂/trip — IPCC AR6</li>
+                <li>International Flight: 1100 kg CO₂/trip — IPCC AR6</li>
+                <li>Electricity (India): 0.708 kg CO₂/kWh — CEA India 2024</li>
+                <li>LPG: 2.98 kg CO₂/kg — IPCC AR6</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="persona" class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Your Carbon Identity</h2>
+        <p class="section-subtitle">A playful AI-powered persona that translates your impact into meaningful habits.</p>
+      </div>
+
+      <div class="persona-grid">
+        <div class="persona-card glass-card reveal-on-scroll">
+          <div class="persona-header">
+            <span class="persona-emoji" id="persona-emoji">🌱</span>
+            <div>
+              <h3 id="persona-title">Eco Explorer</h3>
+              <p id="persona-score">Carbon Score: <strong>82 / 100</strong></p>
+            </div>
+          </div>
+          <div class="persona-traits" id="persona-traits-list">
+            <div class="trait-item">✓ Sustainable diet</div>
+            <div class="trait-item">✓ Low electricity usage</div>
+            <div class="trait-item">⚠ Transportation needs improvement</div>
+          </div>
+          <div class="persona-notice glass-panel">
+            <span class="notice-tag">Persona Insight</span>
+            <p id="persona-summary">Your profile blends strong home energy habits with high transport emissions. Small commuting changes unlock a greener future.</p>
+          </div>
+        </div>
+
+        <div class="climate-twin-card glass-card reveal-on-scroll">
+          <div class="climate-header">
+            <div>
+              <h3>What does your footprint mean?</h3>
+              <p>Translate your annual carbon total into everyday planet-scale equivalents.</p>
+            </div>
+          </div>
+          <div class="twin-cards-grid">
+            <div class="impact-card glass-panel">
+              <span class="impact-icon">🚗</span>
+              <strong id="twin-driving">Driving 18,000 km</strong>
+              <p>Equivalent car distance</p>
+            </div>
+            <div class="impact-card glass-panel">
+              <span class="impact-icon">🌳</span>
+              <strong id="twin-trees">Cutting 200 trees</strong>
+              <p>Carbon absorption equivalent</p>
+            </div>
+            <div class="impact-card glass-panel">
+              <span class="impact-icon">🏠</span>
+              <strong id="twin-home">Powering a house 8 months</strong>
+              <p>Residential energy equivalent</p>
+            </div>
+            <div class="impact-card glass-panel">
+              <span class="impact-icon">✈️</span>
+              <strong id="twin-flights">Flying Delhi → London twice</strong>
+              <p>Travel emissions equivalent</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY EARTH & FUTURE SIMULATOR -->
+    <section id="simulator" class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">My Earth &amp; Future Simulator</h2>
+        <p class="section-subtitle">Visualize how your decisions shape the planet in real time.</p>
+      </div>
+
+      <div class="simulator-split-grid">
+        <!-- Interactive Controls & Simulator HUD -->
+        <div class="simulator-controls glass-card">
+          <h3>Future Impact Simulator</h3>
+          <p class="controls-desc">Toggle sustainable changes to instantly project carbon reductions.</p>
+          
+          <div class="toggles-grid">
+            <div class="toggle-card glass-panel" id="toggle-card-ev">
+              <div class="toggle-card-header">
+                <i data-lucide="zap" class="text-cyan"></i>
+                <span>Use Electric Vehicle</span>
+              </div>
+              <label class="hud-switch">
+                <input type="checkbox" id="sim-ev">
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+
+            <div class="toggle-card glass-panel" id="toggle-card-solar">
+              <div class="toggle-card-header">
+                <i data-lucide="sun" class="text-emerald"></i>
+                <span>Install Solar Panels</span>
+              </div>
+              <label class="hud-switch">
+                <input type="checkbox" id="sim-solar">
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+
+            <div class="toggle-card glass-panel" id="toggle-card-veg">
+              <div class="toggle-card-header">
+                <i data-lucide="salad" class="text-blue"></i>
+                <span>Eat Vegetarian Diet</span>
+              </div>
+              <label class="hud-switch">
+                <input type="checkbox" id="sim-veg">
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+
+            <div class="toggle-card glass-panel" id="toggle-card-flights">
+              <div class="toggle-card-header">
+                <i data-lucide="plane" class="text-cyan"></i>
+                <span>Reduce Flights by 50%</span>
+              </div>
+              <label class="hud-switch">
+                <input type="checkbox" id="sim-flights">
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+
+            <div class="toggle-card glass-panel" id="toggle-card-led">
+              <div class="toggle-card-header">
+                <i data-lucide="lightbulb" class="text-emerald"></i>
+                <span>Switch to LED Lights</span>
+              </div>
+              <label class="hud-switch">
+                <input type="checkbox" id="sim-led">
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+
+            <div class="toggle-card glass-panel" id="toggle-card-bike">
+              <div class="toggle-card-header">
+                <i data-lucide="bike" class="text-blue"></i>
+                <span>Cycle to Work/School</span>
+              </div>
+              <label class="hud-switch">
+                <input type="checkbox" id="sim-bike">
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Dynamic projection stats -->
+          <div class="projection-results glass-panel">
+            <div class="proj-flow">
+              <div class="proj-node">
+                <span class="node-title">Current</span>
+                <span class="node-val text-red" id="sim-curr-val">4.50 T</span>
+              </div>
+              <i data-lucide="arrow-right" class="proj-arrow"></i>
+              <div class="proj-node">
+                <span class="node-title">Projected</span>
+                <span class="node-val text-cyan" id="sim-proj-val">4.50 T</span>
+              </div>
+              <i data-lucide="arrow-right" class="proj-arrow"></i>
+              <div class="proj-node">
+                <span class="node-title">CO₂ Saved</span>
+                <span class="node-val text-emerald" id="sim-saved-val">0.00 T</span>
+              </div>
+            </div>
+            <div class="trees-saved-display">
+              <i data-lucide="tree-pine" class="text-emerald"></i>
+              <span>Equivalent to planting <strong id="sim-trees-val" class="text-emerald">0</strong> mature trees annually</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Earth Visualization Viewport -->
+        <div class="simulator-earth-display glass-card">
+          <div class="simulator-hud-header">
+            <h3>Visualizing: <span id="visual-earth-state-label" class="text-red">Eco Crisis</span></h3>
+            <span class="hud-sub">Dynamic Simulation Engine</span>
+          </div>
+
+          <!-- Visual Frame containing the 3D Earth representing user state -->
+          <div class="earth-canvas-container-outer">
+            <div id="sim-earth-canvas-container"></div>
+            
+            <!-- Real-time HUD overlays overlays representing visual effects -->
+            <div class="smog-overlay" id="smog-screen-overlay"></div>
+            
+            <div class="visual-effects-hud-labels">
+              <div class="hud-fx-stat" id="fx-atmosphere">
+                <span class="lbl">Atmosphere:</span>
+                <span class="val text-red" id="fx-atmosphere-val">Carbon Saturated</span>
+              </div>
+              <div class="hud-fx-stat" id="fx-forests">
+                <span class="lbl">Forest Health:</span>
+                <span class="val text-red" id="fx-forests-val">Decline</span>
+              </div>
+              <div class="hud-fx-stat" id="fx-ocean">
+                <span class="lbl">Ocean Temperature:</span>
+                <span class="val text-red" id="fx-ocean-val">Elevated</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline Slider for Earth in 2050 -->
+          <div class="earth-2050-slider-container glass-panel">
+            <div class="timeline-title-2050">
+              <i data-lucide="hourglass" class="text-cyan animate-pulse"></i>
+              <span>MY EARTH IN 2050: DECISION MATRIX</span>
+            </div>
+            <div class="slider-2050-wrapper">
+              <span class="slider-2050-label text-red">Business-As-Usual</span>
+              <input type="range" id="input-2050" min="0" max="100" value="0" class="hud-slider timeline-2050-slider">
+              <span class="slider-2050-label text-emerald">Net Zero Future</span>
+            </div>
+            <p class="slider-2050-desc" id="text-2050-desc">Drag the timeline slider to visualize how global temperatures, pollution levels, and forest coverage transform by the year 2050 depending on lifestyle practices.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARBON COACH AI ENGINE -->
+    <section id="coach" class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Carbon Coach AI</h2>
+        <p class="section-subtitle">Real-time intelligent sustainability strategy powered by CarbonWise AI.</p>
+      </div>
+
+      <div class="coach-grid">
+        <!-- Sidebar stats -->
+        <div class="coach-sidebar glass-card">
+          <div class="coach-profile">
+            <div class="ai-avatar">
+              <div class="avatar-ring"></div>
+              <i data-lucide="bot"></i>
+            </div>
+            <div class="avatar-info">
+              <h4>CarbonWise Coach</h4>
+              <span class="ai-status"><span class="pulse-dot"></span>Active Intelligence</span>
+            </div>
+          </div>
+
+          <div class="coach-mode-panel glass-panel">
+            <span id="coach-mode-indicator" class="coach-mode-badge">Demo AI Mode</span>
+          </div>
+
+          <div class="coach-stats-list">
+            <div class="c-stat-card glass-panel">
+              <span class="lbl">Recommendation Accuracy</span>
+              <span class="val text-cyan">98.4%</span>
+            </div>
+            <div class="c-stat-card glass-panel">
+              <span class="lbl">Confidence Rating</span>
+              <span class="val text-emerald" id="coach-confidence-val">92%</span>
+            </div>
+            <div class="confidence-bar-wrapper">
+              <span class="confidence-label">AI Confidence</span>
+              <div class="confidence-bar">
+                <div id="coach-confidence-bar" class="confidence-bar-fill" style="width: 92%;"></div>
+              </div>
+            </div>
+            <div class="c-stat-card glass-panel">
+              <span class="lbl">Primary Focus Zone</span>
+              <span class="val text-red" id="coach-focus-zone">Transportation</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat / Recommendation Panel -->
+        <div class="coach-main glass-card">
+          <div class="chat-header">
+            <div class="chat-status">
+              <i data-lucide="message-square-code" class="text-cyan"></i>
+              <span>Personalized Carbon Reduction Plan</span>
+            </div>
+            <button class="btn btn-secondary btn-sm ripple-btn" onclick="triggerAICoachQuery()">
+              <i data-lucide="refresh-cw"></i>
+              <span>Regenerate Insights</span>
+            </button>
+          </div>
+
+          <div class="coach-insights-scroll" id="ai-insights-container">
+            <!-- Simulated AI writing content loads here -->
+            <div class="ai-loading-placeholder">
+              <div class="spinner"></div>
+              <span>Analyzing carbon footprint configuration...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE & ANALYTICS DASHBOARD -->
+    <section id="dashboard" class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Timeline Dashboard</h2>
+        <p class="section-subtitle">Track historical carbon indices, seasonal averages, and long-term emission grades.</p>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- Left: Trends and Grade -->
+        <div class="dashboard-trends glass-card">
+          <div class="dashboard-card-header">
+            <h3>Emissions History</h3>
+            <div class="dashboard-tabs">
+              <button class="dash-tab active" data-period="daily">Daily</button>
+              <button class="dash-tab" data-period="weekly">Weekly</button>
+              <button class="dash-tab" data-period="monthly">Monthly</button>
+              <button class="dash-tab" data-period="yearly">Yearly</button>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="emissionsTrendChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Right: Grade and Heatmap -->
+        <div class="dashboard-status-panel">
+          <div class="grade-card glass-card">
+            <h3>Carbon Rating Index</h3>
+            <div class="grade-display">
+              <div class="grade-glow-circle">
+                <span class="grade-letter" id="dashboard-grade-val">B</span>
+              </div>
+              <div class="grade-meta">
+                <h4 id="grade-label">Moderate Performance</h4>
+                <p id="grade-desc">Your lifestyle emissions fall within the top 60% of regional users. Improve transportation choices to achieve an A rating.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="heatmap-card glass-card">
+            <div class="heatmap-header">
+              <h3>Emission Heatmap</h3>
+              <span class="heatmap-sub">Weekly Activity log</span>
+            </div>
+            <!-- Heatmap grid representation -->
+            <div class="heatmap-grid" id="heatmap-grid-element">
+              <!-- Grid blocks injected programmatically -->
+            </div>
+            <div class="heatmap-legend">
+              <span>Low</span>
+              <span class="h-box lvl-1"></span>
+              <span class="h-box lvl-2"></span>
+              <span class="h-box lvl-3"></span>
+              <span class="h-box lvl-4"></span>
+              <span>High</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ECO CHALLENGES & GAMIFICATION -->
+    <section id="challenges" class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Eco Challenges</h2>
+        <p class="section-subtitle">Earn experience points, level up, and unlock ecological status badges.</p>
+      </div>
+
+      <div class="challenges-layout-grid">
+        <!-- Active Challenges List -->
+        <div class="challenges-panel glass-card">
+          <div class="panel-header-badge">
+            <h3>Active Quests</h3>
+            <span class="badge-count">5 Available</span>
+          </div>
+
+          <div class="challenges-list" id="quests-list-container">
+            <!-- Quests will be injected dynamically -->
+          </div>
+        </div>
+
+        <!-- Badges & Achievements Cabinet -->
+        <div class="achievements-cabinet glass-card">
+          <h3>Achievements Cabinet</h3>
+          <p class="cabinet-sub">Master challenges to claim status badges.</p>
+
+          <div class="badges-grid" id="badges-grid-container">
+            <!-- Badges dynamically rendered here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMMUNITY IMPACT -->
+    <section id="community" class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Community Impact</h2>
+        <p class="section-subtitle">Join the collective effort to capture carbon and create a net-zero footprint.</p>
+      </div>
+
+      <div class="community-grid">
+        <!-- Left: Glowing Map -->
+        <div class="community-map-card glass-card">
+          <div class="map-hud-header">
+            <h3>Global Environmental Actions Map</h3>
+            <span class="hud-status-live"><span class="pulse-dot"></span>LIVE ACTIVITY</span>
+          </div>
+          <!-- Interactive Map Container -->
+          <div class="interactive-map-wrapper">
+            <svg id="world-map-svg" viewBox="0 0 1000 500" class="world-map-canvas">
+              <!-- Styled global paths will be injected -->
+            </svg>
+            <!-- Map overlay nodes -->
+            <div class="map-overlay-stat">
+              <span class="lbl">Community CO₂ Saved</span>
+              <span class="val text-cyan" id="comm-co2-total">14,242,501 kg</span>
+            </div>
+            <div class="map-overlay-stat secondary">
+              <span class="lbl">Community Trees Planted</span>
+              <span class="val text-emerald" id="comm-trees-total">582,304</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: MY EARTH Live Feedback -->
+        <div class="community-leaderboard glass-card">
+          <div class="leaderboard-header">
+            <div>
+              <h3>MY EARTH</h3>
+              <span class="leaderboard-sub">Live planetary reflection of your emissions.</span>
+            </div>
+          </div>
+          <div class="my-earth-card">
+            <div class="my-earth-summary">
+              <span id="my-earth-health-label" class="earth-health-status text-red">🔴 Critical</span>
+              <p id="my-earth-health-desc">Your Earth is currently in a stressed state due to high transport and energy emissions.</p>
+            </div>
+            <div id="my-earth-3d-container" class="my-earth-3d-container"></div>
+            <div class="my-earth-metrics-grid">
+              <div class="mini-stat glass-panel">
+                <span>Atmosphere</span>
+                <strong id="my-earth-atmo-text">Carbon Saturated</strong>
+              </div>
+              <div class="mini-stat glass-panel">
+                <span>Forests</span>
+                <strong id="my-earth-forest-text">Declining</strong>
+              </div>
+              <div class="mini-stat glass-panel">
+                <span>Oceans</span>
+                <strong id="my-earth-ocean-text">Darkening</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Achievement Popup Alert Notification -->
+  <div class="achievement-toast glass-panel" id="achievement-notification">
+    <div class="toast-glow"></div>
+    <div class="toast-body">
+      <div class="toast-icon-wrap">
+        <i data-lucide="sparkles" class="text-emerald"></i>
+      </div>
+      <div class="toast-content">
+        <h4 id="toast-title">Achievement Unlocked!</h4>
+        <p id="toast-message">You earned the Carbon Ninja badge.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="hud-footer glass-panel">
+    <div class="footer-left">
+      <span>&copy; 2026 CarbonWise AI. Powered by Advanced Sustainability models.</span>
+    </div>
+    <div class="footer-right">
+      <a href="#hero" class="footer-link">Back to Top</a>
+      <span class="divider">|</span>
+      <a href="#" class="footer-link">Privacy Policy</a>
+      <span class="divider">|</span>
+      <a href="#" class="footer-link">Terms of Service</a>
+    </div>
+  </footer>
+
+  <!-- Application JS Modules -->
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>
